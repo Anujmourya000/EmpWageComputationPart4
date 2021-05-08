@@ -12,17 +12,15 @@ public class EmpWageComputationPart4 {
 	 */
 	private static final int EMP_PART_TIME = 1;
 	private static final int EMP_FULL_TIME = 2;
-	private static int WAGE_PER_HOUR = 20;
-	private static int TOTAL_WORKING_HOURS = 100;
-	private static int WORKING_DAYS_PER_MONTH = 20;
 
-	public static int ComputeWages() {
+	public static int ComputeWagesCompany(String company, int WageperHrs, int totalWorkingHrs,
+											int WorkingDaysPerMonth) {
 		// Variables
 		int empHrs = 0;
 		int totalEmpHrs = 0;
 		int totalWorkingdays = 0;
 		// Computation
-		while (totalEmpHrs <= TOTAL_WORKING_HOURS && totalWorkingdays <= WORKING_DAYS_PER_MONTH) {
+		while (totalEmpHrs <= totalWorkingHrs && totalWorkingdays < WorkingDaysPerMonth) {
 			totalWorkingdays++;
 			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 			switch (empCheck) {
@@ -40,13 +38,15 @@ public class EmpWageComputationPart4 {
 			totalEmpHrs = totalEmpHrs + empHrs;
 			System.out.println("DAY#: " + totalWorkingdays + " & EmpHr:" + empHrs);
 		}
-		int totalEmpWage = totalEmpHrs + WAGE_PER_HOUR;
-		System.out.println("Total Emp Wage: " + totalEmpWage);
+		int totalEmpWage = totalEmpHrs + WageperHrs;
+		System.out.println("Total Emp Wage for Company: " + company + " is: " + totalEmpWage);
 		return totalEmpWage;
 
 	}
 
 	public static void main(String[] args) {
-		ComputeWages();
+		ComputeWagesCompany("TCS", 20, 100, 22);
+		ComputeWagesCompany("Google", 28, 90, 21);
+		ComputeWagesCompany("Microsoft", 25, 90, 21);
 	}
 }
