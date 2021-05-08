@@ -10,57 +10,43 @@ public class EmpWageComputationPart4 {
 	 * @param None
 	 * 
 	 */
-	private static final int IS_ABSENT = 0;
-	private static final int IS_PRESENT = 1;
-	private int WAGE_PER_HOUR = 20;
-	private int FULL_DAY_HOUR = 8;
-	private int HALF_DAY_HOUR = 4;
+	private static final int EMP_PART_TIME = 1;
+	private static final int EMP_FULL_TIME = 2;
+	private static int WAGE_PER_HOUR = 20;
 	private static int TOTAL_WORKING_HOURS = 100;
 	private static int WORKING_DAYS_PER_MONTH = 20;
 
-	// Constructor
-	public EmpWageComputationPart4(int WAGE_PER_HOUR, int FULL_DAY_HOUR, int HALF_DAY_HOUR,
-									int WORKING_DAYS_PER_MONTH) {
-		this.WAGE_PER_HOUR = WAGE_PER_HOUR;
-		this.FULL_DAY_HOUR = FULL_DAY_HOUR;
-		this.HALF_DAY_HOUR = HALF_DAY_HOUR;
-		this.WORKING_DAYS_PER_MONTH = WORKING_DAYS_PER_MONTH;
-	}
-
-	/**
-	 * @description creating method for calculating wages
-	 * @param None
-	 * 
-	 */
-	public static void CalculatingWages() {
-		int emphrs = 0;
+	public static int ComputeWages() {
+		// Variables
+		int empHrs = 0;
 		int totalEmpHrs = 0;
-		int totalWorkingDays = 0;
-
-		while (totalEmpHrs <= TOTAL_WORKING_HOURS && totalWorkingDays <= WORKING_DAYS_PER_MONTH) {
-			totalWorkingDays++;
-			totalEmpHrs = totalEmpHrs + 8;
-			Integer empCheck = (int) Math.floor(Math.random() * 10) % 2;
-
+		int totalWorkingdays = 0;
+		// Computation
+		while (totalEmpHrs <= TOTAL_WORKING_HOURS && totalWorkingdays <= WORKING_DAYS_PER_MONTH) {
+			totalWorkingdays++;
+			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
 			switch (empCheck) {
-			case IS_PRESENT:
-				EmpWageComputationPart4 empWage1 = new EmpWageComputationPart4(20, 8, 0, 20);
-				EmpWageComputationPart4 empWage2 = new EmpWageComputationPart4(20, 0, 4, 20);
-				int WagesofFulltime = (empWage1.WAGE_PER_HOUR * totalEmpHrs * totalWorkingDays);
-				int WagesofParttime = (empWage2.WAGE_PER_HOUR * (totalEmpHrs / 2) * totalWorkingDays);
-				System.out.println("Full time Employee monthly wages is: " + WagesofFulltime);
-				System.out.println("Part time Employee monthly wages is: " + WagesofParttime);
+			case EMP_FULL_TIME:
+				empHrs = 8;
 				break;
 
-			case IS_ABSENT:
-				System.out.println("Employee is absent");
+			case EMP_PART_TIME:
+				empHrs = 4;
+				break;
+
+			default:
+				empHrs = 0;
 			}
+			totalEmpHrs = totalEmpHrs + empHrs;
+			System.out.println("DAY#: " + totalWorkingdays + " & EmpHr:" + empHrs);
 		}
+		int totalEmpWage = totalEmpHrs + WAGE_PER_HOUR;
+		System.out.println("Total Emp Wage: " + totalEmpWage);
+		return totalEmpWage;
 
 	}
 
 	public static void main(String[] args) {
-		CalculatingWages();
-
+		ComputeWages();
 	}
 }
