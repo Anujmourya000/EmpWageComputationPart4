@@ -6,23 +6,47 @@
  */
 public class EmpWageComputationPart4 {
 	/**
-	 * @description defining Global Variables
+	 * @description Declaring Global variables as private
 	 * @param None
 	 * 
 	 */
 	private static final int EMP_PART_TIME = 1;
 	private static final int EMP_FULL_TIME = 2;
 
-	public static int ComputeWagesCompany(String company, int WageperHrs, int totalWorkingHrs,
-											int WorkingDaysPerMonth) {
+	private static String company;
+	private static int WagePerHrs;
+	private static int TotalWorkingHrs;
+	private static int WorkingDaysPerMonth;
+	private static int totalEmpWage;
+
+	/**
+	 * @description Constructor of Employee wage computation Class
+	 * @param None
+	 * 
+	 */
+	public EmpWageComputationPart4(String company, int WagePerHrs, int TotalWorkingHrs, int WorkingDaysPerMonth) {
+		this.company = company;
+		this.WagePerHrs = WagePerHrs;
+		this.TotalWorkingHrs = TotalWorkingHrs;
+		this.WorkingDaysPerMonth = WorkingDaysPerMonth;
+	}
+
+	/**
+	 * @description Created method for computation of employee wages for all
+	 *              companies
+	 * @param None
+	 * 
+	 */
+	public void ComputeWagesCompany() {
 		// Variables
 		int empHrs = 0;
 		int totalEmpHrs = 0;
 		int totalWorkingdays = 0;
 		// Computation
-		while (totalEmpHrs <= totalWorkingHrs && totalWorkingdays < WorkingDaysPerMonth) {
+		while (totalEmpHrs <= TotalWorkingHrs && totalWorkingdays < WorkingDaysPerMonth) {
 			totalWorkingdays++;
 			int empCheck = (int) Math.floor(Math.random() * 10) % 3;
+
 			switch (empCheck) {
 			case EMP_FULL_TIME:
 				empHrs = 8;
@@ -38,15 +62,25 @@ public class EmpWageComputationPart4 {
 			totalEmpHrs = totalEmpHrs + empHrs;
 			System.out.println("DAY#: " + totalWorkingdays + " & EmpHr:" + empHrs);
 		}
-		int totalEmpWage = totalEmpHrs + WageperHrs;
-		System.out.println("Total Emp Wage for Company: " + company + " is: " + totalEmpWage);
-		return totalEmpWage;
+		totalEmpWage = totalEmpHrs * WagePerHrs;
+	}
 
+	@Override
+	public String toString() {
+		return "Total Employee Wage for Company: " + company + " is " + totalEmpWage;
 	}
 
 	public static void main(String[] args) {
-		ComputeWagesCompany("TCS", 20, 100, 22);
-		ComputeWagesCompany("Google", 28, 90, 21);
-		ComputeWagesCompany("Microsoft", 25, 90, 21);
+
+		EmpWageComputationPart4 tcs = new EmpWageComputationPart4("TCS", 20, 100, 22);
+		tcs.ComputeWagesCompany();
+		System.out.println(tcs);
+		EmpWageComputationPart4 google = new EmpWageComputationPart4("Google", 28, 90, 21);
+		google.ComputeWagesCompany();
+		System.out.println(google);
+		EmpWageComputationPart4 microsoft = new EmpWageComputationPart4("Microsoft", 25, 90, 21);
+		microsoft.ComputeWagesCompany();
+		System.out.println(microsoft);
+
 	}
 }
